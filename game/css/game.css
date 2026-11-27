@@ -1,0 +1,5 @@
+/* Full-screen stage for Wishbone Getaway: 3D viewport below, HUD canvas overlaid, pointer-events none. */
+html, body { margin: 0; height: 100%; overflow: hidden; background: #2a1509; }
+#viewport { position: fixed; inset: 0; width: 100%; height: 100%; }
+#viewport canvas { display: block; width: 100%; height: 100%; }
+#hud { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
