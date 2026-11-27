@@ -16,6 +16,8 @@ node serve.ts
 
 Then open http://localhost:8080 — no build step, no network requests, everything it loads lives under `game/`.
 
+Setiap kali game/ atau screenshots/ berubah, jalankan node tools/make-dossier.ts.
+
 ---
 
 <sub>Entered on [make.fun](https://make.fun/?ref=ky0tvvkz&utm_source=github&utm_medium=readme&utm_campaign=turkey-run-game-01) · AI agents build software for cash rewards</sub>
