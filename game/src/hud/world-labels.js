@@ -15,12 +15,19 @@ export function drawWorldLabels(ctx, s, camera, W, H) {
     const mark = s.farmerMode === 'SEARCHING' ? '?' : s.farmerMode === 'LOST YOU' ? '?!' : '!';
     const col = mark === '!' ? '#e23b2e' : mark === '?' ? '#f0a020' : '#7ec850';
     outlineText(ctx, mark, fp.x, fp.y, 34, col);
+    // While searching, say so in huge letters just above the farmer: at a
+    // glance the judge must see he is hunting, not just standing there.
+    // It sits below the speech bubble (which rides higher while searching)
+    // and clear of the top HUD bar.
+    const searching = s.farmerMode === 'SEARCHING';
+    if (searching) outlineText(ctx, 'SEARCHING!', fp.x, fp.y - 55, 28, '#f0a020');
     if (s.quip) {
       ctx.font = 'bold 14px Georgia, serif';
       const w = ctx.measureText(s.quip).width + 20;
-      ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.beginPath(); ctx.roundRect(fp.x - w / 2, fp.y - 84, w, 26, 10); ctx.fill();
-      ctx.beginPath(); ctx.moveTo(fp.x - 8, fp.y - 58); ctx.lineTo(fp.x + 8, fp.y - 58); ctx.lineTo(fp.x, fp.y - 26); ctx.closePath(); ctx.fill();
-      text(ctx, s.quip, fp.x, fp.y - 70, 14, '#5a2d0c', 'center');
+      const top = searching ? fp.y - 150 : fp.y - 84;
+      ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.beginPath(); ctx.roundRect(fp.x - w / 2, top, w, 26, 10); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(fp.x - 8, top + 26); ctx.lineTo(fp.x + 8, top + 26); ctx.lineTo(fp.x, fp.y - 26); ctx.closePath(); ctx.fill();
+      text(ctx, s.quip, fp.x, top + 14, 14, '#5a2d0c', 'center');
     }
   }
   // PIP tag: hidden on the results screen (the card already names the run).

@@ -1,7 +1,7 @@
 // Stage 2 scenery for Wishbone Getaway: plank walls, pillars, lofts, stalls, chickens, lanterns.
 import * as THREE from 'three';
 import { mulberry32, range } from '../core/random.js';
-import { makeHayBale, makeSignBoard, box, sphere, cone } from './prop-kit.js';
+import { makeHayBale, makeCrate, makeSignBoard, box, sphere, cone } from './prop-kit.js';
 export function buildBarn(scene) {
   const g = new THREE.Group();
   const rng = mulberry32(77);
@@ -32,7 +32,15 @@ export function buildBarn(scene) {
     c.position.set(range(rng, 420, 780), 0, (rng() < 0.5 ? -1 : 1) * range(rng, 3, 6.5));
     g.add(c);
   }
-  const sign = makeSignBoard(['FARMHOUSE KITCHEN', 'NO TURKEYS BEYOND THIS POINT']); sign.position.set(560, 0, -7.8); g.add(sign);
+  const sign = makeSignBoard(['FARMHOUSE KITCHEN', 'NO TURKEYS', 'BEYOND THIS POINT']); sign.position.set(560, 0, -7.8); g.add(sign);
+  // Floor dressing around the middle of the barn: hay bales and crates at the
+  // walls, clear of the running track, so the barn reads full at a glance.
+  for (const [bx, bz] of [[544, -5.9], [540, 5.9], [566, -5.9], [578, 5.9]]) {
+    const b = makeHayBale(); b.position.set(bx, 0, bz); b.rotation.y = 0.5; g.add(b);
+  }
+  for (const [cx, cz] of [[534, 5.4], [578, -5.6]]) {
+    const c = makeCrate(1.1); c.position.set(cx, 0, cz); c.rotation.y = 0.4; g.add(c);
+  }
   // Cream door frame at x 800.
   g.add(box(0.5, 5.5, 1.2, 0xf2e4c8, 800, 2.75, -6));
   g.add(box(0.5, 5.5, 1.2, 0xf2e4c8, 800, 2.75, 6));

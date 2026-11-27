@@ -21,16 +21,18 @@ export class HudRenderer {
     ctx.scale(scale, scale);
     const S = { ...s, W: lw, H: 640 };
     if (s.state === 'title') { drawTitle(ctx, S, lw, 640, time); drawToasts(ctx, S, lw, 640); ctx.restore(); return; }
+    // End screen: the results panel is the whole HUD. The in-run panels
+    // (score, route bar, threat, ability bar) used to leak through behind it.
+    if (s.state === 'end') { drawResults(ctx, S, lw, 640); ctx.restore(); return; }
     // In-run HUD.
     drawTopLeft(ctx, S, lw);
     drawTopRight(ctx, S, lw);
     drawRouteBar(ctx, S, lw / 2 - 190, 16, 380);
     drawThreat(ctx, S, lw, 640);
-    drawAbility(ctx, S, lw, 640);
+    if (!s.lite) drawAbility(ctx, S, lw, 640);
     if (s.hidden) drawHiddenPanel(ctx, S, lw, 640);
     drawWorldLabels(ctx, S, camera, lw, 640);
     drawToasts(ctx, S, lw, 640);
-    if (s.state === 'end') drawResults(ctx, S, lw, 640);
     if (s.state === 'paused') drawPause(ctx, S, lw, 640);
     ctx.restore();
   }

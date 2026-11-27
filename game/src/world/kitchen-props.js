@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { mulberry32, range } from '../core/random.js';
 import { makeSignBoard, box, sphere, cone } from './prop-kit.js';
 import { wallpaperTexture, signTexture } from './canvas-textures.js';
+import { makeKnife } from '../hazards/hazard-models.js';
 function chalkboard(lines, w = 4, h = 2.4) {
   const g = new THREE.Group();
   const board = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.1), new THREE.MeshStandardMaterial({ map: signTexture(lines, { bg: '#2a3a2a', fg: '#f2e4c8' }), roughness: 0.9 }));
@@ -43,6 +44,10 @@ export function buildKitchen(scene) {
   }
   const board1 = chalkboard(["TODAY'S MENU:", 'ROAST TURKEY', '(catch it first)']); board1.position.set(950, 0, -8.1); g.add(board1);
   const board2 = chalkboard(['NOVEMBER', 'THU 26', 'TURKEY DAY!']); board2.position.set(1150, 0, -8.1); g.add(board2);
+  // Knife rack on the back wall above the ovens: big carving knives, blade down.
+  for (let i = 0; i < 3; i++) {
+    const k = makeKnife(1.6); k.position.set(972 + i * 6, 4.6, -8.1); k.rotation.z = -Math.PI / 2; g.add(k);
+  }
   // Dining tables with pies at the front.
   for (const tx of [880, 980, 1080, 1160]) {
     g.add(box(4, 0.2, 2.4, 0x8a5a30, tx, 1.0, 5.5));

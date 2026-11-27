@@ -5,9 +5,9 @@ export const TURKEY_NAME = 'PIP';
 export const FARMER_NAME = 'FARMER GRIMSBY';
 export const TRACK = { halfWidth: 6, stageLength: 400, finishX: 1200, woodsEnd: 1290 };
 export const STAGES = [
-  { id: 'patch', name: 'PUMPKIN PATCH', from: 0, to: 400, farmerSpeed: 9.0, throwMin: 5.5, throwMax: 7.5, blurb: 'Fences, pumpkins and mud. Hide in the haystacks.', sky: 0xf2a65a, ground: 0x7d8f3e },
-  { id: 'barn', name: 'RED BARN', from: 400, to: 800, farmerSpeed: 9.5, throwMin: 4.2, throwMax: 6.0, blurb: 'Rolling barrels, hay lofts and a nosy rooster.', sky: 0xe89a4a, ground: 0x8a5a30 },
-  { id: 'kitchen', name: 'GRIMSBY KITCHEN', from: 800, to: 1200, farmerSpeed: 10.0, throwMin: 3.0, throwMax: 4.6, blurb: 'Oven blasts, sliding carving knives, gravy slicks.', sky: 0xd98a52, ground: 0xb24a2f },
+  { id: 'patch', name: 'PUMPKIN PATCH', from: 0, to: 400, farmerSpeed: 9.0, throwMin: 5.5, throwMax: 7.5, blurb: 'Fences, pumpkins and mud.', sky: 0xf2a65a, ground: 0x7d8f3e },
+  { id: 'barn', name: 'RED BARN', from: 400, to: 800, farmerSpeed: 9.5, throwMin: 4.2, throwMax: 6.0, blurb: 'Barrels, hay lofts, rooster.', sky: 0xe89a4a, ground: 0x8a5a30 },
+  { id: 'kitchen', name: 'GRIMSBY KITCHEN', from: 800, to: 1200, farmerSpeed: 10.0, throwMin: 3.0, throwMax: 4.6, blurb: 'Ovens, knives, gravy slicks.', sky: 0xd98a52, ground: 0xb24a2f },
 ];
 export const TURKEY = { run: 9.4, sprint: 13.2, ease: 6.0, strafe: 8.5, jumpVel: 7.6, flapVel: 5.2, gravity: 22, glideGravity: 9, dashSpeed: 22, dashTime: 0.32, dashCooldown: 2.4, staminaDrain: 0.28, staminaRegen: 0.16, stun: 0.55, invuln: 1.5, radius: 0.55, lives: 3, maxLives: 3 };
 export const FARMER = { startGap: 11, catchGap: 1.25, knockbackGap: 9, catchup: 3.2, catchupGap: 18, lungeGap: 3.2, lungeTime: 0.6, lungeBonus: 6, gazeRange: 9, gazeHalfAngle: 0.5, gazeSweep: 1.25, gazeSweepRange: 1.35, knifeWarn: 0.9, knifeSpeed: 27, knifeHitRadius: 0.62, knifeHeight: 0.55, searchSpeed: 5, searchRange: 4.5, spotBonus: 2.2, spotBonusTime: 3 };

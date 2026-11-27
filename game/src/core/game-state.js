@@ -75,6 +75,7 @@ export class Game {
     this.endKind = null; this.endLine = ''; this.tallyRows = []; this.totalScore = 0; this.rank = ''; this.newBest = false;
     this.stageBanner = '';
     this.frozen = false;
+    this.shotLite = false; // staged cover shot: HUD with big essentials only (no AHEAD list, no ability bar)
     this.autopilot = new URLSearchParams(location.search).get('auto') === '1';
     this.god = new URLSearchParams(location.search).get('god') === '1';
     this.resize();
@@ -241,7 +242,7 @@ export class Game {
       knifeIncoming: this.knives.incoming, stageIndex: si, corn: this.score.corn, decoys: this.decoys,
       lives: this.lives, best: this.save.best, ahead: this.aheadList(),
       hidden: this.turkey.hidden, suspicion: this.farmer.suspicion, hiddenSpotKind: this.turkey.hiddenSpot ? this.turkey.hiddenSpot.kind : '',
-      nearSpot: this.turkey.nearSpot || null, stamina: this.turkey.stamina, dashCd: this.turkey.dashCd,
+      nearSpot: this.turkey.nearSpot || null, stamina: this.turkey.stamina, dashCd: this.turkey.dashCd, lite: this.shotLite,
       quip: this.farmer.quip, hazardTags: this.hazardTags(), popups: this.score.popups,
       toasts: this.toasts, menuSel: this.menuSel, sound: this.sfx.enabled,
       escapes: this.save.escapes, runs: this.save.runs,
@@ -263,12 +264,14 @@ export class Game {
     for (const c of this.input.takeClicks()) {
       this.sfx.unlock();
       if (this.state === 'title') {
-        // Menu hit test in logical space.
+        // Menu hit test in logical space. Rows match drawTitle in screens.js:
+        // giant START row, then three compact rows.
         const scale = (this.hud.H || 640) / 640;
         const lx = c.x / scale, ly = c.y / scale;
         if (lx > 40 && lx < 420) {
-          const idx = Math.floor((ly - 250) / 62);
-          if (idx >= 0 && idx <= 3) { this.menuSel = idx; if (idx === 3) { this.sfx.enabled = !this.sfx.enabled; this.save.sound = this.sfx.enabled; storeSave(this.save); return; } }
+          const rows = [{ y: 250, h: 68 }, { y: 330, h: 52 }, { y: 392, h: 52 }, { y: 454, h: 52 }];
+          const idx = rows.findIndex((r) => ly >= r.y && ly < r.y + r.h);
+          if (idx >= 0) { this.menuSel = idx; if (idx === 3) { this.sfx.enabled = !this.sfx.enabled; this.save.sound = this.sfx.enabled; storeSave(this.save); return; } }
         }
         this.startRun(this.menuSel === 1 ? 1 : this.menuSel === 2 ? 2 : 0);
         return;

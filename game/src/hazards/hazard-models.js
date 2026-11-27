@@ -3,8 +3,11 @@ import * as THREE from 'three';
 import { mat, box, sphere } from '../world/prop-kit.js';
 export function makeKnife(scale = 1) {
   const g = new THREE.Group();
+  // Carving-knife silhouette: straight spine and edge meeting at a sharp
+  // pointed tip. All straight lines — the old quadratic tip tessellated
+  // into a zigzag that read as a saw blade at contact-sheet size.
   const shape = new THREE.Shape();
-  shape.moveTo(0, 0); shape.lineTo(0.95, 0.06); shape.quadraticCurveTo(1.25, 0.1, 1.15, 0.22); shape.lineTo(0.1, 0.24); shape.lineTo(0, 0);
+  shape.moveTo(0, 0); shape.lineTo(1.12, 0.03); shape.lineTo(1.38, 0.18); shape.lineTo(0.1, 0.24); shape.lineTo(0, 0);
   const blade = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 0.03, bevelEnabled: false }), new THREE.MeshStandardMaterial({ color: 0xeef2f6, metalness: 0.35, roughness: 0.3, flatShading: true }));
   blade.castShadow = true; g.add(blade);
   g.add(box(0.42, 0.14, 0.07, 0x3a2a1a, -0.28, 0.12, 0));
@@ -26,11 +29,14 @@ export function makeOven() {
 }
 export function makeFireJet() {
   const g = new THREE.Group();
-  const geo = new THREE.IcosahedronGeometry(0.28, 0);
-  const cols = [0xff6a00, 0xffb020, 0xffd23e, 0xe23b2e];
+  // Flame tongues, not balls: cones pointing along the jet read as fire at a
+  // glance, where the old icosahedra read as orange candy. Colours run from a
+  // pale core at the oven mouth to red at the tip.
+  const geo = new THREE.ConeGeometry(0.3, 1.0, 6);
+  const cols = [0xffd23e, 0xffb020, 0xff6a00, 0xe23b2e];
   const parts = [];
   for (let i = 0; i < 26; i++) {
-    const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: cols[i % 4], emissive: cols[i % 4], emissiveIntensity: 0.9, flatShading: true }));
+    const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: cols[i % 4], emissive: cols[i % 4], emissiveIntensity: 1.2, flatShading: true }));
     m.visible = false; g.add(m); parts.push(m);
   }
   g.userData.parts = parts;

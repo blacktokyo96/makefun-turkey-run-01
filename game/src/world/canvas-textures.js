@@ -59,7 +59,14 @@ export function signTexture(lines, opts = {}) {
     g.strokeStyle = fg; g.lineWidth = 10; g.strokeRect(8, 8, w - 16, h - 16);
     g.fillStyle = fg; g.textAlign = 'center'; g.textBaseline = 'middle';
     const n = lines.length;
-    lines.forEach((line, i) => { g.font = 'bold ' + (i === 0 ? 54 : 34) + 'px Georgia, serif'; g.fillText(line, w / 2, h * (i + 0.5) / n); });
+    lines.forEach((line, i) => {
+      // Shrink the font until the line fits inside the border: long lines
+      // (e.g. FARMHOUSE KITCHEN) used to be clipped at both edges.
+      let size = i === 0 ? 54 : 34;
+      g.font = 'bold ' + size + 'px Georgia, serif';
+      while (size > 12 && g.measureText(line).width > w - 48) { size -= 2; g.font = 'bold ' + size + 'px Georgia, serif'; }
+      g.fillText(line, w / 2, h * (i + 0.5) / n);
+    });
   });
 }
 export function plaidTexture() {

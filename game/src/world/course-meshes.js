@@ -59,6 +59,9 @@ export function buildCourseMeshes(scene, layout) {
       const cloth = sphere(0.9, 0xf2e4c8, 0, 1.15, 0, 1, 0.5, 1); m.add(cloth);
     } else {
       m = makeHayBale(); m.scale.setScalar(1.25); m.position.y = 0;
+      // Lie across the track (long side to the camera) so the bale reads as
+      // hay, not as a barrel end-on.
+      m.rotation.y = Math.PI / 2;
       const top = sphere(0.95, 0xd9a94f, 0, 1.15, 0, 1, 0.5, 1); m.add(top);
     }
     m.position.set(s.x, 0, s.z);

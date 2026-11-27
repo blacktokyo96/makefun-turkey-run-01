@@ -40,9 +40,12 @@ export class OvenBlast {
         if (!blast) return;
         const f = (i / parts.length + time * 2.2) % 1;
         // Local coords: jet group sits at z -6.6, fire runs along +z to the reach.
-        p.position.set(Math.sin(i * 2.4 + time * 5) * 0.5, 0.5 + Math.sin(i * 1.7) * 0.35 + f * 0.4, 0.6 + f * (zEnd + 6.6 - 0.6));
-        p.rotation.x += dt * 6; p.rotation.y += dt * 4;
-        p.scale.setScalar(0.6 + f * 0.9);
+        // Flame tongues point along the jet, big and tall at the oven mouth,
+        // tapering to the tip, with a slight flickering tilt. Tight scatter so
+        // the jet reads as one tongue of flame, not a pile of shards.
+        p.position.set(Math.sin(i * 2.4 + time * 5) * 0.3, 0.55 + Math.sin(i * 1.7 + time * 3) * 0.25 + f * 0.5, 0.6 + f * (zEnd + 6.6 - 0.6));
+        p.rotation.set(Math.PI / 2 + Math.sin(i * 3.1 + time * 6) * 0.15, 0, Math.sin(i * 1.3 + time * 4) * 0.15);
+        p.scale.set(1.0 - f * 0.4, 1.5 - f * 0.8, 1.0 - f * 0.4);
       });
       if (blast && !o.hitDone && turkey.y < 1.7 && Math.abs(turkey.x - o.x) < HAZARDS.ovenBand && turkey.z > -6.6 && turkey.z < zEnd && !turkey.hidden && turkey.invuln <= 0) {
         o.hitDone = true; events.push({ type: 'ovenHit', oven: o });

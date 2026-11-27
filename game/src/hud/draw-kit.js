@@ -20,10 +20,10 @@ export function meter(ctx, x, y, w, h, frac, color, bg = 'rgba(0,0,0,0.5)') {
   if (frac > 0) { ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect(x, y, w * Math.max(0, Math.min(1, frac)), h, h / 2); ctx.fill(); }
   ctx.strokeStyle = 'rgba(255,238,194,0.5)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(x, y, w, h, h / 2); ctx.stroke();
 }
-export function keycap(ctx, label, x, y, w = 34, h = 26) {
+export function keycap(ctx, label, x, y, w = 34, h = 26, textSize = 13) {
   ctx.fillStyle = '#f2e4c8'; ctx.strokeStyle = '#8a5a30'; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.roundRect(x, y - h / 2, w, h, 6); ctx.fill(); ctx.stroke();
-  text(ctx, label, x + w / 2, y + 1, 13, '#5a2d0c', 'center', 'bold', 'monospace');
+  text(ctx, label, x + w / 2, y + 1, textSize, '#5a2d0c', 'center', 'bold', 'monospace');
 }
 export function drawFeather(ctx, x, y, s, lost = false) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(-0.5);
