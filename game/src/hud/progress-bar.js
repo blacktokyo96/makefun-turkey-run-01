@@ -27,5 +27,6 @@ export function drawRouteBar(ctx, s, x, y, w) {
   text(ctx, 'STAGE ' + (cur + 1) + '/3', x, y + h + 30, 13, PALETTE.gold, 'left');
   const toDoor = Math.max(0, Math.ceil(TRACK.finishX - s.turkeyX));
   text(ctx, toDoor + ' m to the back door', x + w, y + h + 30, 13, PALETTE.cream, 'right');
-  text(ctx, 'STAGE ' + (cur + 1) + ' · ' + STAGES[cur].name, x + w / 2, y + h + 48, 12, '#ffb060', 'center');
+  // Stage subtitle: hidden on the results screen, where the results panel covers it.
+  if (s.state !== 'end') text(ctx, 'STAGE ' + (cur + 1) + ' · ' + STAGES[cur].name, x + w / 2, y + h + 48, 12, '#ffb060', 'center');
 }

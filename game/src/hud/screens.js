@@ -42,7 +42,6 @@ export function drawTitle(ctx, s, W, H, time) {
   });
   text(ctx, '★ BACK DOOR → WHISPERING WOODS', W - 320, 316, 13, '#7ec850');
   text(ctx, 'Best ' + formatInt(s.best) + ' · Escapes ' + s.escapes + ' · Runs ' + s.runs, W - 320, 352, 13, PALETTE.cream);
-  if (Math.floor(time * 1.4) % 2 === 0) text(ctx, 'ENTER or CLICK to run for your life', W / 2, H - 24, 18, '#ffd700', 'center');
 }
 export function drawResults(ctx, s, W, H) {
   panel(ctx, W - 460, 90, 420, 460, 16);
@@ -55,15 +54,15 @@ export function drawResults(ctx, s, W, H) {
     text(ctx, row.label, W - 430, y, 14, PALETTE.cream);
     text(ctx, row.value || '', W - 300, y, 14, PALETTE.cream, 'right');
     text(ctx, '+' + formatInt(row.pts), W - 70, y, 14, PALETTE.gold, 'right');
-    y += 26;
+    y += 24;
   }
   ctx.strokeStyle = 'rgba(240,160,32,0.5)'; ctx.beginPath(); ctx.moveTo(W - 430, y + 4); ctx.lineTo(W - 70, y + 4); ctx.stroke();
-  text(ctx, 'TOTAL', W - 430, y + 30, 18, PALETTE.cream);
-  text(ctx, formatInt(s.totalScore), W - 70, y + 30, 22, PALETTE.gold, 'right');
-  text(ctx, 'RANK: ' + s.rank, W - 250, y + 62, 17, '#ffd700', 'center');
-  if (s.newBest) text(ctx, '★ NEW BEST! ★', W - 250, y + 88, 16, '#ffd700', 'center');
-  keycap(ctx, 'R', W - 360, y + 118, 30); text(ctx, 'run again', W - 322, y + 118, 13, PALETTE.cream);
-  text(ctx, 'CLICK restart · ESC title', W - 250, y + 142, 13, PALETTE.cream, 'center');
+  text(ctx, 'TOTAL', W - 430, y + 26, 18, PALETTE.cream);
+  text(ctx, formatInt(s.totalScore), W - 70, y + 26, 22, PALETTE.gold, 'right');
+  text(ctx, 'RANK: ' + s.rank, W - 250, y + 54, 17, '#ffd700', 'center');
+  if (s.newBest) text(ctx, '★ NEW BEST! ★', W - 250, y + 80, 16, '#ffd700', 'center');
+  keycap(ctx, 'R', W - 360, y + 104, 30); text(ctx, 'run again', W - 322, y + 104, 13, PALETTE.cream);
+  text(ctx, 'CLICK restart · ESC title', W - 250, y + 128, 13, PALETTE.cream, 'center');
 }
 export function drawPause(ctx, s, W, H) {
   ctx.fillStyle = 'rgba(20,10,2,0.55)'; ctx.fillRect(0, 0, W, H);

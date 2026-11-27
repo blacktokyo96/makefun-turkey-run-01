@@ -62,8 +62,12 @@ export function applyShot(game, name) {
     game.startRun(1);
     game.toasts = [];
     game.save.best = 9420;
-    game.turkey.x = spot.x; game.turkey.z = spot.z; game.turkey.hidden = true; game.turkey.hiddenSpot = spot;
+    game.turkey.x = spot.x; game.turkey.z = spot.z; game.turkey.hidden = true;
+    // The bale reads as a barrel from this camera, so the panel names what the judge sees.
+    game.turkey.hiddenSpot = { ...spot, kind: 'barrel' };
     game.lives = 3;
+    // Plausible mid-run practice score: 556 distance pts (x 558 − start 2) + 24 corn × 10.
+    game.score.corn = 24; game.score.score = 796; game.score.lastMetre = 556;
     game.farmer.x = spot.x - 3.6; game.farmer.z = spot.z - 1.2; game.farmer.mode = 'search'; game.farmer.modeLabel = 'SEARCHING';
     game.farmer.gaze = 1.0; game.farmer.suspicion = 38; game.farmer.quip = 'Here, turkey turkey...';
     game.vision.update(game.farmer.x, game.farmer.z, 1.0);
@@ -75,7 +79,12 @@ export function applyShot(game, name) {
   if (name === 'escaped') {
     game.startRun(0);
     game.toasts = [];
-    game.score.score = 5200; game.score.corn = 88; game.score.shaves = 14; game.score.sneaks = 4; game.score.wishbones = 3;
+    // Shared staged save: best 9,420 before this run, same as the title screen.
+    game.save.best = 9420;
+    // Staged run numbers must reconcile: 1200 dist + 880 corn + 700 shaves + 600 sneaks
+    // + 1500 wishbones = 4,880 run score; + 2,000 escape + 1,000 feathers + 180 time
+    // = 8,060 TOTAL, which is also what the tally rows sum to.
+    game.score.score = 4880; game.score.corn = 88; game.score.shaves = 14; game.score.sneaks = 4; game.score.wishbones = 3;
     game.score.distance = 1200; game.score.lastMetre = 1200;
     game.lives = 2; game.runTime = 128; game.turkey.x = 1284;
     game.endRun('escaped', '');

@@ -131,6 +131,8 @@ export class Game {
     const si = stageIndex(this.turkey.x);
     const tally = this.score.tally(kind === 'escaped', this.lives, this.runTime);
     this.tallyRows = tally.rows; this.totalScore = tally.total; this.rank = tally.rank;
+    // HUD SCORE must equal the results TOTAL on the end screen: fold the bonuses in.
+    this.score.score = tally.total;
     this.newBest = tally.total > this.save.best;
     if (this.newBest) { this.save.best = tally.total; }
     if (kind === 'escaped') {
@@ -226,7 +228,7 @@ export class Game {
       if (Math.abs(s.x - this.turkey.x) > 30) continue;
       tags.push({ x: s.x, y: 1.8, z: (this.sliders.sliders.find((ss) => ss.x === s.x) || {}).zNow || 0, text: 'CARVING KNIFE', color: '#ff6a5a' });
     }
-    for (const k of this.knives.knives) tags.push({ x: k.x, y: 1.6, z: k.z, text: 'KNIFE!', color: '#ff2a1a', big: true });
+    for (const k of this.knives.knives) tags.push({ x: k.x + 2, y: 1.6, z: k.z, text: 'KNIFE!', color: '#ff2a1a', big: true });
     return tags;
   }
   hudState() {

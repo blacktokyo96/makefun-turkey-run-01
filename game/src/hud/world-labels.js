@@ -18,14 +18,14 @@ export function drawWorldLabels(ctx, s, camera, W, H) {
     if (s.quip) {
       ctx.font = 'bold 14px Georgia, serif';
       const w = ctx.measureText(s.quip).width + 20;
-      ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.beginPath(); ctx.roundRect(fp.x - w / 2, fp.y - 62, w, 26, 10); ctx.fill();
-      ctx.beginPath(); ctx.moveTo(fp.x - 8, fp.y - 36); ctx.lineTo(fp.x + 8, fp.y - 36); ctx.lineTo(fp.x, fp.y - 26); ctx.closePath(); ctx.fill();
-      text(ctx, s.quip, fp.x, fp.y - 48, 14, '#5a2d0c', 'center');
+      ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.beginPath(); ctx.roundRect(fp.x - w / 2, fp.y - 84, w, 26, 10); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(fp.x - 8, fp.y - 58); ctx.lineTo(fp.x + 8, fp.y - 58); ctx.lineTo(fp.x, fp.y - 26); ctx.closePath(); ctx.fill();
+      text(ctx, s.quip, fp.x, fp.y - 70, 14, '#5a2d0c', 'center');
     }
   }
-  // PIP tag.
+  // PIP tag: hidden on the results screen (the card already names the run).
   const tp = project(camera, s.turkeyX, s.turkeyY + 2.3, s.turkeyZ, W, H);
-  if (tp) text(ctx, s.hidden ? 'PIP · HIDDEN' : 'PIP', tp.x, tp.y, 15, s.hidden ? '#ffd700' : PALETTE.cream, 'center');
+  if (tp && s.state !== 'end') text(ctx, s.hidden ? 'PIP · HIDDEN' : 'PIP', tp.x, tp.y, 15, s.hidden ? '#ffd700' : PALETTE.cream, 'center');
   // [E] HIDE prompt.
   if (s.nearSpot && !s.hidden) {
     const sp = project(camera, s.nearSpot.x, 2.6, s.nearSpot.z, W, H);

@@ -19,7 +19,8 @@ export function drawTopLeft(ctx, s, W) {
 export function drawTopRight(ctx, s, W) {
   panel(ctx, W - 232, 12, 220, 62, 12);
   text(ctx, 'FEATHERS', W - 218, 30, 13, '#ffb060');
-  for (let i = 0; i < 3; i++) drawFeather(ctx, W - 150 + i * 26, 32, 14, i >= s.lives);
+  // Icons sit clear of the label: label ends ~W-150, icons start at W-118.
+  for (let i = 0; i < 3; i++) drawFeather(ctx, W - 118 + i * 26, 32, 14, i >= s.lives);
   text(ctx, 'BEST ' + formatInt(s.best), W - 26, 56, 13, PALETTE.cream, 'right');
   // AHEAD list: next 4 things within 70 m.
   const ahead = s.ahead || [];
